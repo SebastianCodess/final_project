@@ -1,3 +1,14 @@
+def leaderboard(): 
+    """ 
+    Shows the leaderboard in a form of dictionary 
+    
+    Args:
+        score (tuple of int): player 1's score and player 2's score
+
+    Returns:
+        leaderboard (dictionary): players' names as key and players' status as value
+    """
+
 def word_list(filename):
     """
     This method will open a file using a with statement, read the words in each 
