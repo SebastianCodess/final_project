@@ -1,4 +1,11 @@
-def leaderboard(): 
+class WordGame:
+    """This is a word game. The game generates a specified number of letters for
+    the user and allows the user to make words using those characters. 
+    Attributes:
+    PlayerWords: An empty list that will contain the words that the user types 
+    in.
+    """
+    def leaderboard(): 
     """ 
     Shows the leaderboard in a form of dictionary 
     
@@ -6,10 +13,24 @@ def leaderboard():
         score (tuple of int): player 1's score and player 2's score
 
     Returns:
-        leaderboard (dictionary): players' names as key and players' status as value
-    """
+        leaderboard (dictionary): players' names as key and players' 
+        status as value
+        """
+    
+    def randomizer(self,Vowels,Consonants):
+    """Takes the two numbers given by the user for the numbers of vowels and
+    consonants that they want and then generates those characters by using a
+    list comprehension.
 
-def word_list(filename):
+    Args:
+        Vowels (Int): The number of Vowels the user wants in their character
+        list
+        Consonants (_type_): The number of Consonants the user wants in their 
+        character list
+    Returns: A list of all of the characters that the user will pick from when
+    making their words.
+    """
+    def word_list(filename):
     """
     This method will open a file using a with statement, read the words in each 
     line within the file, and append those words to a list.
@@ -45,6 +66,32 @@ def word_list(filename):
     return dalist
           
     pass
+
+def parse_args(arglist):
+    """Parses command-line arguments.
+    
+    Expect three mandatory arguments:
+        - Filepath: The file that is being read in with the word list
+        - Vowels: The number of vowels the user wants
+        - Consonants: The number of consonants the user wants, max of 6 
+    The Function also allows for one optional argument:
+        - Players: The amount of players that are playing with a max of 2,
+        default is 1.
+    
+    Args:
+        arglist (list of str): arguments from the command line.
+    
+    Returns:
+        namespace: the parsed arguments, as a namespace."""
+    parser = ArgumentParser()
+    parser.add_argument("Filepath", help="file containing the word list")
+    parser.add_argument("Vowels", help = """Integer stating the number of
+                        vowels the user wants""")
+    parser.add_argument("Consonants", help = """Integer stating the number of
+                        Consonants the user wants""")
+    parser.add_argument("Players", help = """The number of players playing the
+                        game""",default=1)
+    return parser.parse_args(arglist)
           
           
 def main(player1,player2):
