@@ -1,3 +1,5 @@
+from argparse import ArgumentParser
+
 class WordGame:
     """This is a word game. The game generates a specified number of letters for
     the user and allows the user to make words using those characters. 
@@ -5,67 +7,90 @@ class WordGame:
     PlayerWords: An empty list that will contain the words that the user types 
     in.
     """
-    def leaderboard(): 
-    """ 
-    Shows the leaderboard in a form of dictionary 
-    
-    Args:
-        score (tuple of int): player 1's score and player 2's score
-
-    Returns:
-        leaderboard (dictionary): players' names as key and players' 
-        status as value
-        """
-    
-    def randomizer(self,Vowels,Consonants):
-    """Takes the two numbers given by the user for the numbers of vowels and
-    consonants that they want and then generates those characters by using a
-    list comprehension.
-
-    Args:
-        Vowels (Int): The number of Vowels the user wants in their character
-        list
-        Consonants (_type_): The number of Consonants the user wants in their 
-        character list
-    Returns: A list of all of the characters that the user will pick from when
-    making their words.
-    """
     def word_list(filename):
-    """
-    This method will open a file using a with statement, read the words in each 
-    line within the file, and append those words to a list.
+        """This method will open a file using a with statement, read the words 
+        in each line within the file, and append those words to a list.
     
-    Simple Values:
-        str: This method will contain strings in the name of the file as an
-        argument.
+        Simple Values:
+            str: This method will contain strings in the name of the file as an
+            argument.
     
-    Files:
-        utf-8: The list of words in the textfile should be UTF-8 encoded. If the
-        the file is not utf-8 encoded, than we will change the encoding to match 
-        the text file. We will be retrieving the word list from Aric. Each line
-        of the file should consist of a word. 
+        Files:
+            utf-8: The list of words in the textfile should be UTF-8 encoded. 
+            If the the file is not utf-8 encoded, than we will change the 
+            encoding to match the text file. We will be retrieving the word list
+            from Aric. Each line of the file should consist of a word. 
     
-    Containers:
-        list: this method will contain a list of words being read from a text 
-        file.
+        Containers:
+            list: this method will contain a list of words being read from a text 
+            file.
     
-    Args: 
-        filename(str): this is a string that indicates the name of the text file. 
+        Args: 
+            filename(str): this is a string that indicates the name of the text 
+            file. 
     
-    Returns:
-        wordlist(list of str): this is a list that will contain all the words 
-        read from the text file. 
+        Returns:
+            wordlist(list of str): this is a list that will contain all the words 
+            read from the text file. 
+        """
+        dalist = list()
+        with open (filename, "r", encoding = "utf8") as f: 
+            for word in f:
+                freshwords = word.strip().split()
+                dalist.append(freshwords)  
+        return dalist
     
-    """
-    dalist = list()
-    with open (filename, "r", encoding = "utf8") as f: 
-        for word in f:
-          freshwords = word.strip().split()
-          dalist.append(freshwords)
-          
-    return dalist
-          
-    pass
+    def randomizer(self, Vowels, Consonants):
+        """Takes the two numbers given by the user for the numbers of vowels and
+        consonants that they want and then generates those characters by using a
+        list comprehension.
+
+        Args:
+            Vowels (Int): The number of Vowels the user wants in their character
+            list
+            Consonants (_type_): The number of Consonants the user wants in 
+            their character list
+            
+        Returns: A list of all of the characters that the user will pick from 
+        when making their words.
+        """
+        pass
+    
+    def score_comparison():
+        """Compares the scores from the two players. It takes the score and puts
+        the integers into a tuple that has the player one as the first number
+        and player two as the second number. The higher number is declaired the 
+        winner and is returned to be used later.
+        
+        Returns:
+            high_score (int): the highest score from the two players
+        """
+        pass
+    
+    def high_score():
+        """Gets the highest score from the session and who got that score. After
+        it prints that out to the user so they can see who won the game.
+        
+        Returns
+            highest_score (list of int): the highest score from the session
+        
+        Side effects:
+            prints to stdout
+        """
+        pass
+        
+    def leaderboard(): 
+        """Shows the leaderboard in a form of dictionary 
+    
+        Args:
+            score (tuple of int): player 1's score and player 2's score
+
+        Returns:
+            leaderboard (dictionary): players' names as key and players' 
+            status as value
+        """
+        pass
+    
 
 def parse_args(arglist):
     """Parses command-line arguments.
@@ -109,7 +134,8 @@ def main(player1,player2):
             This function will print out the scores and names of both players 
             using an F-string. 
     """
+    pass
     
     
 if __name__ == "__main__":
-    
+    pass
