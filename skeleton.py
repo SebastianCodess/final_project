@@ -56,6 +56,67 @@ class WordGame:
         """
         pass
     
+    
+    def Score(self):
+        """This method will keep track of the score by taking the length of each
+        word that matched the generated list of words and create a score.
+        The scores will then be added up to create a main score for a single player.
+    
+        Simple values:
+            str: Each word guessed in the list of guessed words and the words
+            from the list of generated words.
+        
+            int: In each matching word, the length of the word will be the score
+            given for that particular word. These scores will then be added up and 
+            return the total score for one player.
+    
+        Containers:
+            lists: The individual scores for each word will be added into a list.
+            These values will then be summed together to create the individual score
+            of the player.
+
+        Side Effects:
+            Creates a object that contains a value for each individual's score.
+
+        Returns:
+            The score of an individual player that is the sum of all the points
+            given for every matched words length.
+        """
+    
+    def word_checker(self):
+        """This method will check if the guessed is found in the list of words.
+        The method takes the list of guessed words and list of generated words and 
+        changes them to sets so that the set operator & can be used to find
+        commonality. The method also checks if player guessed a word containing a 
+        letter that was not provided in the list of letters shown to the player. If
+        that happens then the word is then deleted from the list of guessed words.
+    
+    
+        Simple Values:
+            str: This method will be comparing strings or words in a list of player
+            guessed words and a list of given words from a sample textfile.
+    
+        Containers:
+            list: There will be a list for both the user guessed scores as well as 
+            the list of given words from the textfile.
+        
+            set: The lists will be converted into sets so that set operators can be
+            used between the two sets to find commonality. That is how we will 
+            check if the guessed word is in the list of words in the game.
+        
+        Args:
+            guessed_words(list of str): Contains all of the words the player guessed
+            generated_words(list of str): Contains all of the words from the 
+            textfile used to compare words. 
+        
+        
+        Side Effects:
+            Changes the guessed_words and generated_words list into sets.
+        
+        Returns:
+            A set of matching/correct words.
+        """
+    
     def score_comparison():
         """Compares the scores from the two players. It takes the score and puts
         the integers into a tuple that has the player one as the first number
