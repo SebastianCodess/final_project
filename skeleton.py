@@ -1,12 +1,26 @@
 from argparse import ArgumentParser
 
 class WordGame:
-    """This is a word game. The game generates a specified number of letters for
-    the user and allows the user to make words using those characters. 
-    Attributes:
-    PlayerWords: An empty list that will contain the words that the user types 
-    in.
     """
+
+    This is a word game. The game generates a specified number of letters for
+    the user and allows the user to make words using those characters. 
+    
+    """
+    
+    def __init__(self, playerScore, playerWords, guessedWords):
+        """  Creates the playerScore, playerWords, guessedWords attributes
+
+        Args:
+            playerScore (int): the counter for the scores of players.
+            playerWords (list): the list that will contain all the choices of words.
+            guessedWords (list): the list that will contain all the user's guessed words.
+        """
+        self.playerScore = 0
+        self.playerWords = []
+        self.guessedWords = []
+
+
     def word_list(filename):
         """This method will open a file using a with statement, read the words 
         in each line within the file, and append those words to a list.
