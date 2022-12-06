@@ -104,10 +104,11 @@ class WordGame:
             A set of matching/correct words.
         """
         matched_words = []
-        updated_guesses = [x for x in self.guessedWords if x == self.playerLetters]
+        #updated_guesses = [x for x in self.guessedWords if x == self.playerLetters]
+        updated_guesses = all([x in self.guessedWords for x in self.playerLetters])
         set(self.dalist) 
         set(updated_guesses) 
-        matched_words = list(self.dalist & self.guessedWords)
+        matched_words = list(self.dalist & updated_guesses)
            
     def Score(self):
         """This method will keep track of the score by taking the length of each
