@@ -142,7 +142,7 @@ class WordGame:
             
         self.playerScore = sum(list_of_scores)
 
-    def score_comparison():
+    def score_comparison(self, player2 = None):
         """Compares the scores from the two players. It takes the score and puts
         the integers into a tuple that has the player one as the first number
         and player two as the second number. The higher number is declaired the 
@@ -151,9 +151,16 @@ class WordGame:
         Returns:
             high_score (int): the highest score from the two players
         """
-        pass
-    
-    def high_score():
+        score = ()
+        score = (self.playerScore, player2.playerScore)
+        if self.playerScore > player2.playerScore:
+            high_score, winner = max(score), "player 1"
+            return high_score, winner
+        else:
+            high_score, winner = max(score), "player 2"
+            return high_score, winner
+                
+    def high_score(self):
         """Gets the highest score from the session and who got that score. After
         it prints that out to the user so they can see who won the game.
         
@@ -163,7 +170,7 @@ class WordGame:
         Side effects:
             prints to stdout
         """
-        pass
+        print(f"{winner} won the game with {high_score} points!")
         
     def leaderboard(): 
         """Shows the leaderboard in a form of dictionary 
