@@ -17,7 +17,7 @@ class WordGame:
             guessedWords (list): the list that will contain all the user's guessed words.
         """
         self.playerScore = 0
-        self.playerWords = []
+        self.playerLetters = []
         self.guessedWords = []
 
 
@@ -70,33 +70,6 @@ class WordGame:
         """
         pass
     
-    
-    def Score(self):
-        """This method will keep track of the score by taking the length of each
-        word that matched the generated list of words and create a score.
-        The scores will then be added up to create a main score for a single player.
-    
-        Simple values:
-            str: Each word guessed in the list of guessed words and the words
-            from the list of generated words.
-        
-            int: In each matching word, the length of the word will be the score
-            given for that particular word. These scores will then be added up and 
-            return the total score for one player.
-    
-        Containers:
-            lists: The individual scores for each word will be added into a list.
-            These values will then be summed together to create the individual score
-            of the player.
-
-        Side Effects:
-            Creates a object that contains a value for each individual's score.
-
-        Returns:
-            The score of an individual player that is the sum of all the points
-            given for every matched words length.
-        """
-    
     def word_checker(self):
         """This method will check if the guessed is found in the list of words.
         The method takes the list of guessed words and list of generated words and 
@@ -130,7 +103,44 @@ class WordGame:
         Returns:
             A set of matching/correct words.
         """
+        matched_words = []
+        updated_guesses = [x for x in self.guessedWords if x == self.playerLetters]
+        set(self.dalist) 
+        set(updated_guesses) 
+        matched_words = list(self.dalist & self.guessedWords)
+           
+    def Score(self):
+        """This method will keep track of the score by taking the length of each
+        word that matched the generated list of words and create a score.
+        The scores will then be added up to create a main score for a single player.
     
+        Simple values:
+            str: Each word guessed in the list of guessed words and the words
+            from the list of generated words.
+        
+            int: In each matching word, the length of the word will be the score
+            given for that particular word. These scores will then be added up and 
+            return the total score for one player.
+    
+        Containers:
+            lists: The individual scores for each word will be added into a list.
+            These values will then be summed together to create the individual score
+            of the player.
+
+        Side Effects:
+            Creates a object that contains a value for each individual's score.
+
+        Returns:
+            The score of an individual player that is the sum of all the points
+            given for every matched words length.
+        """
+        list_of_scores = []
+        for word in matched_words:
+            x=len(word)
+            list_of_scores.append(x)
+            
+        self.playerScore = sum(list_of_scores)
+
     def score_comparison():
         """Compares the scores from the two players. It takes the score and puts
         the integers into a tuple that has the player one as the first number
