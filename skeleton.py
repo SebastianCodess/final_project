@@ -79,7 +79,7 @@ class WordGame:
                      for x in range(1,Characters+1)]
         return CharacterList
     
-    def word_checker(self):
+    def word_checker(self, matched):
         """This method will check if the guessed is found in the list of words.
         The method takes the list of guessed words and list of generated words and 
         changes them to sets so that the set operator & can be used to find
@@ -123,7 +123,7 @@ class WordGame:
         set(updated_guesses) 
         self.matched = list(self.dalist & updated_guesses)
            
-    def Score(self):
+    def Score(self, matched):
         """This method will keep track of the score by taking the length of each
         word that matched the generated list of words and create a score.
         The scores will then be added up to create a main score for a single player.
