@@ -51,7 +51,7 @@ class WordGame:
         dalist = list()
         with open (filename, "r", encoding = "utf8") as f: 
             for word in f:
-                freshwords = word.strip().split()
+                freshwords = word.strip()
                 dalist.append(freshwords)  
         return dalist
     
@@ -238,7 +238,7 @@ def main(player1,player2):
             This function will print out the scores and names of both players 
             using an F-string. 
     """
-    pass
+    
     
     
 if __name__ == "__main__":
