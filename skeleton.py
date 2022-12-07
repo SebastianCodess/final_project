@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+import random
 
 class WordGame:
     """
@@ -54,7 +55,7 @@ class WordGame:
                 dalist.append(freshwords)  
         return dalist
     
-    def randomizer(self, Vowels, Consonants):
+    def randomizer(self, Characters):
         """Takes the two numbers given by the user for the numbers of vowels and
         consonants that they want and then generates those characters by using a
         list comprehension.
@@ -68,7 +69,15 @@ class WordGame:
         Returns: A list of all of the characters that the user will pick from 
         when making their words.
         """
-        pass
+        LettersList = ["E","E","E","E","E","A","A","A","A","S","S","S","S","I","I",
+                   "I","I","R","R","R","R","N","N","N","N","T","T","T","O","O",
+                   "O","L","L","L","C","C","C","D","D","D","U","U","U","G","G",
+                 "P","P","M","M","H","H","B","B","Y","Y","F","F","V","K","W",
+                 "Z","X","J","Q"]
+        CharacterList = []
+        CharacterList = [CharacterList.append(random.choice(LettersList)) 
+                     for x in range(1,Characters+1)]
+        return CharacterList
     
     def word_checker(self):
         """This method will check if the guessed is found in the list of words.
@@ -207,10 +216,8 @@ def parse_args(arglist):
         namespace: the parsed arguments, as a namespace."""
     parser = ArgumentParser()
     parser.add_argument("Filepath", help="file containing the word list")
-    parser.add_argument("Vowels", help = """Integer stating the number of
-                        vowels the user wants""")
-    parser.add_argument("Consonants", help = """Integer stating the number of
-                        Consonants the user wants""")
+    parser.add_argument("Characters", help = """Integer stating the number of
+                        characters the user wants""")
     parser.add_argument("Players", help = """The number of players playing the
                         game""",default=1)
     return parser.parse_args(arglist)
