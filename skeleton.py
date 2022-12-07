@@ -56,8 +56,8 @@ class WordGame:
         return dalist
     
     def randomizer(self, Characters):
-        """Takes the two numbers given by the user for the numbers of vowels and
-        consonants that they want and then generates those characters by using a
+        """Takes the number given by the user for the number of characters
+        that they want and then generates those characters by using a
         list comprehension.
 
         Args:
@@ -76,7 +76,7 @@ class WordGame:
                  "Z","X","J","Q"]
         CharacterList = []
         CharacterList = [CharacterList.append(random.choice(LettersList)) 
-                     for x in range(1,Characters+1)]
+                     for i in range(1,Characters+1)]
         return CharacterList
     
     def word_checker(self):
@@ -201,10 +201,9 @@ class WordGame:
 def parse_args(arglist):
     """Parses command-line arguments.
     
-    Expect three mandatory arguments:
+    Expect two mandatory arguments:
         - Filepath: The file that is being read in with the word list
-        - Vowels: The number of vowels the user wants
-        - Consonants: The number of consonants the user wants, max of 6 
+        - Characters: The amount of letters the user wants to use
     The Function also allows for one optional argument:
         - Players: The amount of players that are playing with a max of 2,
         default is 1.
