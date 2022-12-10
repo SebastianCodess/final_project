@@ -118,7 +118,7 @@ class WordGame:
             self.highscore, self.winner = max(score), "player 2"
             return self.highscore, self.winner
                 
-    def high_score(self):
+    def __str__(self):
         """Gets the highest score from the session and who got that score. After
         it prints that out to the user so they can see who won the game.
         
@@ -128,7 +128,7 @@ class WordGame:
         Side effects:
             prints to stdout
         """
-        print(f"{self.winner} won the game with {self.highscore} points!")
+        return f"{self.winner} won the game with {self.highscore} points!"
         
     def leaderboard(): 
         """Shows the leaderboard in a form of dictionary 
