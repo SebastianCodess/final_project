@@ -269,7 +269,8 @@ def main(filename,characters):
     #player =  WordGame()
 
     print("Welcome to our Word Game!")
-    name = input("To being, What is your name? ")
+    name = input("To begin, What is your name? ")
+    #name2 = input("To being, What is your name? ")
     print("You will be able to enter up to 10 words. If you would like to end the game: enter the number 1")
             
     print(f"Here are the letters you can build a word from:{random_characters}")
@@ -289,11 +290,11 @@ def main(filename,characters):
     #print(player_guesses)
    
     wordgame = WordGame(englishWords,player_guesses,name,random_characters)
-    wordgame2 = WordGame(englishWords,player_guesses,name,random_characters)
+    #wordgame2 = WordGame(englishWords,player_guesses,name2,random_characters)
 
     wordgame.word_checker()
     print(wordgame.Score())
-    print(wordgame2.Score())
+    #print(wordgame2.Score())
         
     
     
