@@ -62,15 +62,13 @@ class WordGame:
         updated_guesses = []
         self.matched = []
         
+        
         #for x in self.guessedWords:
             #if all([x in self.guessedWords for x in self.player_letters]) == True:
                 #updated_guesses.append(x)
         
-        #updated_guesses = [x for x in self.guessedWords if all([c in self.guessedWords for c in self.player_letters])]
-        
-        if self.guessedWords in self.player_letters: 
-            updated_guesses.append(self.guessedWords)
-                
+        updated_guesses = [x for x in self.guessedWords if all([c in self.player_letters for c in self.guessedWords])]
+    
         self.dalist = set(self.dalist) 
         guesses = set(self.guessedWords) 
         
@@ -283,9 +281,9 @@ def main(filename,characters):
         if word == "1" or None:
             break
         player_guesses.append(word)
-        if word not in englishWords:
-            print("This word is not in the list of valid words. Try a different word!")
-        continue
+        #if word not in englishWords:
+            #print("This word is not in the list of valid words. Try a different word!")
+        #continue
     
     #print(player_guesses)
    
