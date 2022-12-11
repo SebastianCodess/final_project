@@ -1,6 +1,7 @@
 import sys 
 from argparse import ArgumentParser
 import random
+import string
 
 class WordGame:
     """
@@ -74,7 +75,9 @@ class WordGame:
         updated_guesses = set(updated_guesses) 
         match = (self.dalist & updated_guesses)
         self.matched = list(match)
-        return self.matched
+        print(updated_guesses)
+        print(self.matched)
+        #print("1")
         
         
            
@@ -225,13 +228,13 @@ def randomizer(Characters):
         Returns: A list of all of the characters that the user will pick from 
         when making their words.
         """
-        LettersList = ["E","E","E","E","E","A","A","A","A","S","S","S","S","I","I",
-                   "I","I","R","R","R","R","N","N","N","N","T","T","T","O","O",
-                   "O","L","L","L","C","C","C","D","D","D","U","U","U","G","G",
-                 "P","P","M","M","H","H","B","B","Y","Y","F","F","V","K","W",
-                 "Z","X","J","Q"]
+        LettersList = ["e","e","e","e","e","a","a","a","a","s","s","s","s","i","i",
+                   "i","i","r","r","r","r","n","n","n","n","t","t","t","o","o",
+                   "o","l","l","l","c","c","c","d","d","d","u","u","u","u","g",
+                 "p","p","m","m","h","h","b","b","y","y","f","f","v","k","w",
+                 "z","x","j","q"]
         CharacterList = []
-        [CharacterList.append(random.choice(LettersList)) 
+        [CharacterList.append((random.choice(LettersList))) 
          for x in range(1,int(Characters)+1)]
         return CharacterList
           
@@ -276,7 +279,7 @@ def main(filename,characters):
    
     wordgame = WordGame(englishWords,player_guesses,name,random_characters)
     wordgame.word_checker()
-    print(wordgame.Score())
+    #print(wordgame.Score())
         
     
     
