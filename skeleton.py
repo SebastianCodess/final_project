@@ -63,7 +63,7 @@ class WordGame:
         self.matched = []
         
         for x in self.guessedWords:
-            if x is all([x in self.guessedWords for x in self.player_letters]):
+            if all([x in self.guessedWords for x in self.player_letters]) == True:
                 updated_guesses.append(x)
                 
         self.dalist = set(self.dalist) 
