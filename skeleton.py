@@ -21,76 +21,12 @@ class WordGame:
             guessedWords (list): the list that will contain all the user's guessed words.
         """
         self.playerScore = 0
-<<<<<<< HEAD
-        self.playerLetters = []
-        self.guessedWords = []
-
-
-    def word_list(filename):
-        """This method will open a file using a with statement, read the words 
-        in each line within the file, and append those words to a list.
-    
-        Simple Values:
-            str: This method will contain strings in the name of the file as an
-            argument.
-    
-        Files:
-            utf-8: The list of words in the textfile should be UTF-8 encoded. 
-            If the the file is not utf-8 encoded, than we will change the 
-            encoding to match the text file. We will be retrieving the word list
-            from Aric. Each line of the file should consist of a word. 
-    
-        Containers:
-            list: this method will contain a list of words being read from a text 
-            file.
-    
-        Args: 
-            filename(str): this is a string that indicates the name of the text 
-            file. 
-    
-        Returns:
-            wordlist(list of str): this is a list that will contain all the words 
-            read from the text file. 
-        """
-        dalist = list()
-        with open (filename, "r", encoding = "utf8") as f: 
-            for word in f:
-                freshwords = word.strip().split()
-                dalist.append(freshwords)  
-        return dalist
-    
-    def randomizer(self, Characters):
-        """Takes the number given by the user for the number of characters
-        that they want and then generates those characters by using a
-        list comprehension.
-
-        Args:
-            Vowels (Int): The number of Vowels the user wants in their character
-            list
-            Consonants (_type_): The number of Consonants the user wants in 
-            their character list
-            
-        Returns: A list of all of the characters that the user will pick from 
-        when making their words.
-        """
-        LettersList = ["E","E","E","E","E","A","A","A","A","S","S","S","S","I","I",
-                   "I","I","R","R","R","R","N","N","N","N","T","T","T","O","O",
-                   "O","L","L","L","C","C","C","D","D","D","U","U","U","G","G",
-                 "P","P","M","M","H","H","B","B","Y","Y","F","F","V","K","W",
-                 "Z","X","J","Q"]
-        CharacterList = []
-        CharacterList = [CharacterList.append(random.choice(LettersList)) 
-                     for i in range(1,Characters+1)]
-        return CharacterList
-    
-=======
         self.guessedWords = guessedWords
         self.Characters = 0
         self.player = player
         self.player_letters = player_letters
         self.dalist = englishWords
         
->>>>>>> 3aa290528ce0c06ed6ed9a81319bbb37c2c052ab
     def word_checker(self):
         """This method will check if the guessed is found in the list of words.
         The method takes the list of guessed words and list of generated words and 
@@ -128,15 +64,12 @@ class WordGame:
         self.matched = []
         
         
-        #for x in self.guessedWords:
-            #if all([x in self.guessedWords for x in self.player_letters]) == True:
-                #updated_guesses.append(x)
+        for x in self.guessedWords:
+            if all([char in self.player_letters for char in x]):
+                updated_guesses.append(x)
         
         #updated_guesses = [x for x in self.guessedWords if all([c in self.guessedWords for c in self.player_letters])]
-        
-        if self.guessedWords in self.player_letters: 
-            updated_guesses.append(self.guessedWords)
-                
+                        
         self.dalist = set(self.dalist) 
         guesses = set(updated_guesses) 
         
