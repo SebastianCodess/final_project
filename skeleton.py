@@ -62,10 +62,18 @@ class WordGame:
         updated_guesses = []
         self.matched = []
         
+<<<<<<< HEAD
         for x in self.guessedWords:
 
             if [x in self.guessedWords for x in self.player_letters] == True:
                 updated_guesses.append(x)
+=======
+        #for x in self.guessedWords:
+            #if all([x in self.guessedWords for x in self.player_letters]) == True:
+                #updated_guesses.append(x)
+        
+        updated_guesses = [x for x in self.guessedWords if all([c in self.guessedWords for c in self.player_letters])]
+>>>>>>> 366051c7ddaed1131534aa667ceae62dc0ea941f
                 
         self.dalist = set(self.dalist) 
         updated_guesses = set(updated_guesses) 
