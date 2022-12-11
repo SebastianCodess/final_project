@@ -64,17 +64,14 @@ class WordGame:
         self.matched = []
         
         
-        #for x in self.guessedWords:
-            #if all([x in self.guessedWords for x in self.player_letters]) == True:
-                #updated_guesses.append(x)
+        for x in self.guessedWords:
+            if all([char in self.player_letters for char in x]):
+                updated_guesses.append(x)
         
         #updated_guesses = [x for x in self.guessedWords if all([c in self.guessedWords for c in self.player_letters])]
-        
-        if self.guessedWords in self.player_letters: 
-            updated_guesses.append(self.guessedWords)
-                
+                        
         self.dalist = set(self.dalist) 
-        guesses = set(self.guessedWords) 
+        guesses = set(updated_guesses) 
         
         match = (self.dalist & guesses)
         self.matched = list(match)
