@@ -1,5 +1,7 @@
+import sys 
 from argparse import ArgumentParser
 import random
+import string
 
 class WordGame:
     """
@@ -9,15 +11,16 @@ class WordGame:
     
     """
     
-    def __init__(self, playerScore, playerWords, guessedWords):
+    def __init__(self, englishWords , guessedWords, player, player_letters):
         """  Creates the playerScore, playerWords, guessedWords attributes
 
         Args:
             playerScore (int): the counter for the scores of players.
-            playerWords (list): the list that will contain all the choices of words.
+            englishWords (list): the list that will contain all the choices of words.
             guessedWords (list): the list that will contain all the user's guessed words.
         """
         self.playerScore = 0
+<<<<<<< HEAD
         self.playerLetters = []
         self.guessedWords = []
 
@@ -79,6 +82,14 @@ class WordGame:
                      for i in range(1,Characters+1)]
         return CharacterList
     
+=======
+        self.guessedWords = guessedWords
+        self.Characters = 0
+        self.player = player
+        self.player_letters = player_letters
+        self.dalist = englishWords
+        
+>>>>>>> 3aa290528ce0c06ed6ed9a81319bbb37c2c052ab
     def word_checker(self):
         """This method will check if the guessed is found in the list of words.
         The method takes the list of guessed words and list of generated words and 
@@ -113,15 +124,27 @@ class WordGame:
             A set of matching/correct words.
         """
         updated_guesses = []
-        matched = []
-        #updated_guesses = [x for x in self.guessedWords if x == self.playerLetters]
-        #updated_guesses = all([x in self.guessedWords for x in self.playerLetters])
-        for x in self.guessedWords:
-            if x is all([x in self.guessedWords for x in self.playerLetters]):
-                updated_guesses.append(x)
-        set(self.dalist) 
-        set(updated_guesses) 
-        matched = list(self.dalist & updated_guesses)
+        self.matched = []
+        
+        
+        #for x in self.guessedWords:
+            #if all([x in self.guessedWords for x in self.player_letters]) == True:
+                #updated_guesses.append(x)
+        
+        updated_guesses = [x for x in self.guessedWords if all([c in self.player_letters for c in self.guessedWords])]
+    
+        self.dalist = set(self.dalist) 
+        guesses = set(updated_guesses) 
+        
+        match = (self.dalist & guesses)
+        self.matched = list(match)
+        #print(guesses)
+        #print(self.matched)
+        #print(self.guessedWords)
+        #print(self.player_letters)
+        return self.matched
+        
+        
            
     def Score(self):
         """This method will keep track of the score by taking the length of each
@@ -149,11 +172,12 @@ class WordGame:
             given for every matched words length.
         """
         list_of_scores = []
-        for word in matched:
+        for word in self.matched:
             x=len(word)
             list_of_scores.append(x)
             
         self.playerScore = sum(list_of_scores)
+        return f"Hey {self.player}, your final score is {self.playerScore}!"
 
     def score_comparison(self, player2 = None):
         """Compares the scores from the two players. It takes the score and puts
@@ -167,13 +191,13 @@ class WordGame:
         score = ()
         score = (self.playerScore, player2.playerScore)
         if self.playerScore > player2.playerScore:
-            high_score, winner = max(score), "player 1"
-            return high_score, winner
+            self.highscore, self.winner = max(score), "player 1"
+            return self.highscore, self.winner
         else:
-            high_score, winner = max(score), "player 2"
-            return high_score, winner
+            self.highscore, self.winner = max(score), "player 2"
+            return self.highscore, self.winner
                 
-    def high_score(self):
+    def __str__(self):
         """Gets the highest score from the session and who got that score. After
         it prints that out to the user so they can see who won the game.
         
@@ -183,9 +207,9 @@ class WordGame:
         Side effects:
             prints to stdout
         """
-        print(f"{winner} won the game with {high_score} points!")
+        return f"{self.winner} won the game with {self.highscore} points!"
         
-    def leaderboard(): 
+    def leaderboard(self, player2): 
         """Shows the leaderboard in a form of dictionary 
     
         Args:
@@ -195,8 +219,13 @@ class WordGame:
             leaderboard (dictionary): players' names as key and players' 
             status as value
         """
-        pass
-    
+        score_leaderboard = {"player1": "" , "player2": ""}
+
+        for self.playerScore, player2.playerScore in self.score:
+            score_leaderboard["player 1"] = self.playerScore
+            score_leaderboard["player 2"] = player2.playerScore
+
+        return score_leaderboard
 
 def parse_args(arglist):
     """Parses command-line arguments.
@@ -218,11 +247,67 @@ def parse_args(arglist):
     parser.add_argument("Characters", help = """Integer stating the number of
                         characters the user wants""")
     parser.add_argument("Players", help = """The number of players playing the
-                        game""",default=1)
+                        #game""",default=1)
     return parser.parse_args(arglist)
+
+def word_list(filename):
+        """This method will open a file using a with statement, read the words 
+        in each line within the file, and append those words to a list.
+    
+        Simple Values:
+            str: This method will contain strings in the name of the file as an
+            argument.
+    
+        Files:
+            utf-8: The list of words in the textfile should be UTF-8 encoded. 
+            If the the file is not utf-8 encoded, than we will change the 
+            encoding to match the text file. We will be retrieving the word list
+            from Aric. Each line of the file should consist of a word. 
+    
+        Containers:
+            list: this method will contain a list of words being read from a text 
+            file.
+    
+        Args: 
+            filename(str): this is a string that indicates the name of the text 
+            file. 
+    
+        Returns:
+            wordlist(list of str): this is a list that will contain all the words 
+            read from the text file. 
+        """
+        dalist = list()
+        with open (filename, "r", encoding = "utf8") as f: 
+            for word in f:
+                freshwords = word.strip()
+                dalist.append(freshwords)  
+        return dalist
+
+def randomizer(Characters):
+        """Takes the two numbers given by the user for the numbers of vowels and
+        consonants that they want and then generates those characters by using a
+        list comprehension.
+
+        Args:
+            Vowels (Int): The number of Vowels the user wants in their character
+            list
+            Consonants (_type_): The number of Consonants the user wants in 
+            their character list
+            
+        Returns: A list of all of the characters that the user will pick from 
+        when making their words.
+        """
+        LettersList = ["e","e","e","e","e","a","a","a","a","s","s","s","s","i","i",
+                   "i","i","r","r","r","r","n","n","n","n","t","t","t","o","o",
+                   "o","l","l","l","c","c","c","d","d","d","u","u","u","u","g",
+                 "p","p","m","m","h","h","b","b","y","y","f","f","v","k","w",
+                 "z","x","j","q"]
+        CharacterList = []
+        [CharacterList.append((random.choice(LettersList))) 
+         for x in range(1,int(Characters)+1)]
+        return CharacterList
           
-          
-def main(player1,player2):
+def main(filename,characters):
     """ 
     The main function will call two classes and create an instance of both classes. 
     It will print the score of both players after both of their sessions have
@@ -237,8 +322,48 @@ def main(player1,player2):
             This function will print out the scores and names of both players 
             using an F-string. 
     """
-    pass
+    player_guesses = []
+    random_characters = randomizer(characters)
+    
+    
+    
+    #player =  WordGame()
+
+    print("Welcome to our Word Game!")
+    name = input("To being, What is your name? ")
+    print("You will be able to enter up to 10 words. If you would like to end the game: enter the number 1")
+            
+    print(f"Here are the letters you can build a word from:{random_characters}")
+    
+    englishWords = (word_list(filename))
+    
+    
+    while True: 
+        word = input("Please enter a word with the given letters:")
+        if word == "1" or None:
+            break
+        player_guesses.append(word)
+        if word not in englishWords:
+            print("This word is not in the list of valid words. Try a different word!")
+        continue
+    
+    #print(player_guesses)
+   
+    wordgame = WordGame(englishWords,player_guesses,name,random_characters)
+    wordgame2 = WordGame(englishWords,player_guesses,name,random_characters)
+
+    wordgame.word_checker()
+    print(wordgame.Score())
+    print(wordgame2.Score())
+        
+    
+    
+        
+
+    
     
     
 if __name__ == "__main__":
-    pass
+    args = parse_args(sys.argv[1:])
+    main(args.Filepath, args.Characters)
+    
