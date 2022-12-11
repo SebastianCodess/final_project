@@ -19,16 +19,18 @@ class WordGame:
             guessedWords (list): the list that will contain all the user's guessed words.
         """
         self.playerScore = 0
-        self.guessedWords = []
+        self.guessedWords = guessedWords
         self.Characters = 0
         self.player = player
         self.player_letters = player_letters
+        self.dalist = englishWords
+        
         
         
         
     
     
-    def word_checker(self, matched):
+    def word_checker(self):
         """This method will check if the guessed is found in the list of words.
         The method takes the list of guessed words and list of generated words and 
         changes them to sets so that the set operator & can be used to find
@@ -66,15 +68,17 @@ class WordGame:
         #updated_guesses = [x for x in self.guessedWords if x == self.playerLetters]
         #updated_guesses = all([x in self.guessedWords for x in self.playerLetters])
         for x in self.guessedWords:
-            if x is all([x in self.guessedWords for x in self.playerLetters]):
+            if x is all([x in self.guessedWords for x in self.player_letters]):
                 updated_guesses.append(x)
-        set(self.dalist) 
-        set(updated_guesses) 
-        self.matched = list(self.dalist & updated_guesses)
+        self.dalist = set(self.dalist) 
+        updated_guesses = set(updated_guesses) 
+        match = (self.dalist & updated_guesses)
+        self.matched = list(match)
+        return self.matched
         
         
            
-    def Score(self, matched):
+    def Score(self):
         """This method will keep track of the score by taking the length of each
         word that matched the generated list of words and create a score.
         The scores will then be added up to create a main score for a single player.
@@ -105,6 +109,7 @@ class WordGame:
             list_of_scores.append(x)
             
         self.playerScore = sum(list_of_scores)
+        return f"(Your score is {self.playerScore})"
 
     def score_comparison(self, player2 = None):
         """Compares the scores from the two players. It takes the score and puts
@@ -267,11 +272,11 @@ def main(filename,characters):
             break
         player_guesses.append(word)
     
-    print(player_guesses)
-    score = len(player_guesses)
-    print(score)
+    #print(player_guesses)
+   
     wordgame = WordGame(englishWords,player_guesses,name,random_characters)
-    print(wordgame.score())
+    wordgame.word_checker()
+    print(wordgame.Score())
         
     
     
