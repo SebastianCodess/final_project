@@ -67,17 +67,26 @@ class WordGame:
             #if all([x in self.guessedWords for x in self.player_letters]) == True:
                 #updated_guesses.append(x)
         
+<<<<<<< HEAD
         updated_guesses = [x for x in self.guessedWords if all([c in self.guessedWords for c in self.player_letters])]
     
-        self.dalist = set(self.dalist) 
-        updated_guesses = set(updated_guesses) 
+=======
+        #updated_guesses = [x for x in self.guessedWords if all([c in self.guessedWords for c in self.player_letters])]
         
-        match = (self.dalist & updated_guesses)
+        if self.guessedWords in self.player_letters: 
+            updated_guesses.append(self.guessedWords)
+                
+>>>>>>> cb1b10a69f5f3741b78ab453dfdaf8a37a6216db
+        self.dalist = set(self.dalist) 
+        guesses = set(self.guessedWords) 
+        
+        match = (self.dalist & guesses)
         self.matched = list(match)
-        print(updated_guesses)
-        print(self.matched)
-        print(self.guessedWords)
-        print(self.player_letters)
+        #print(guesses)
+        #print(self.matched)
+        #print(self.guessedWords)
+        #print(self.player_letters)
+        return self.matched
         
         
            
@@ -112,7 +121,7 @@ class WordGame:
             list_of_scores.append(x)
             
         self.playerScore = sum(list_of_scores)
-        return f"(Your score is {self.playerScore})"
+        return f"Hey {self.player}, your final score is {self.playerScore}!"
 
     def score_comparison(self, player2 = None):
         """Compares the scores from the two players. It takes the score and puts
@@ -279,12 +288,18 @@ def main(filename,characters):
         if word == "1" or None:
             break
         player_guesses.append(word)
+        if word not in englishWords:
+            print("This word is not in the list of valid words. Try a different word!")
+        continue
     
     #print(player_guesses)
    
     wordgame = WordGame(englishWords,player_guesses,name,random_characters)
+    wordgame2 = WordGame(englishWords,player_guesses,name,random_characters)
+
     wordgame.word_checker()
-    #print(wordgame.Score())
+    print(wordgame.Score())
+    print(wordgame2.Score())
         
     
     
