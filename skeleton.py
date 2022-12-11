@@ -10,18 +10,22 @@ class WordGame:
     
     """
     
-    def __init__(self, playerScore , playerWords , guessedWords):
+    def __init__(self, englishWords , guessedWords, player, player_letters):
         """  Creates the playerScore, playerWords, guessedWords attributes
 
         Args:
             playerScore (int): the counter for the scores of players.
-            playerWords (list): the list that will contain all the choices of words.
+            englishWords (list): the list that will contain all the choices of words.
             guessedWords (list): the list that will contain all the user's guessed words.
         """
         self.playerScore = 0
-        self.playerLetters = []
         self.guessedWords = []
         self.Characters = 0
+        self.player = player
+        self.player_letters = player_letters
+        
+        
+        
     
     
     def word_checker(self, matched):
@@ -67,6 +71,8 @@ class WordGame:
         set(self.dalist) 
         set(updated_guesses) 
         self.matched = list(self.dalist & updated_guesses)
+        
+        
            
     def Score(self, matched):
         """This method will keep track of the score by taking the length of each
@@ -239,19 +245,38 @@ def main(filename,characters):
             This function will print out the scores and names of both players 
             using an F-string. 
     """
+    player_guesses = []
+    random_characters = randomizer(characters)
+    
+    
+    
+    #player =  WordGame()
 
-    word_list(filename)
     print("Welcome to our Word Game!")
-    print("If you would like to stop the game, please type 1")
-    print(f"Here are the letters you can build a word from:{randomizer(characters)}")
+    name = input("To being, What is your name?")
+    print("You will be able to enter up to 10 words. If you would like to end the game: enter the number 1")
+            
+    print(f"Here are the letters you can build a word from:{random_characters}")
+    
+    englishWords = (word_list(filename))
+    
     
     while True: 
-         player_input = input("Please enter a word with the given letters:")
-         if player_input == "1": 
-             break
+        word = input("Please enter a word with the given letters:")
+        if word == "1" or None:
+            break
+        player_guesses.append(word)
+    
+    print(player_guesses)
+    score = len(player_guesses)
+    print(score)
+    wordgame = WordGame(englishWords,player_guesses,name,random_characters)
+    print(wordgame.score())
+        
+    
+    
         
 
-    
     
     
     
