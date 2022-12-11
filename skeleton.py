@@ -26,11 +26,6 @@ class WordGame:
         self.player_letters = player_letters
         self.dalist = englishWords
         
-        
-        
-        
-    
-    
     def word_checker(self):
         """This method will check if the guessed is found in the list of words.
         The method takes the list of guessed words and list of generated words and 
@@ -66,18 +61,21 @@ class WordGame:
         """
         updated_guesses = []
         self.matched = []
-        #updated_guesses = [x for x in self.guessedWords if x == self.playerLetters]
-        #updated_guesses = all([x in self.guessedWords for x in self.playerLetters])
+        
         for x in self.guessedWords:
-            if x is all([x in self.guessedWords for x in self.player_letters]):
+
+            if [x in self.guessedWords for x in self.player_letters] == True:
                 updated_guesses.append(x)
+                
         self.dalist = set(self.dalist) 
         updated_guesses = set(updated_guesses) 
+        
         match = (self.dalist & updated_guesses)
         self.matched = list(match)
         print(updated_guesses)
         print(self.matched)
-        #print("1")
+        print(self.guessedWords)
+        print(self.player_letters)
         
         
            
@@ -144,7 +142,7 @@ class WordGame:
         """
         return f"{self.winner} won the game with {self.highscore} points!"
         
-    def leaderboard(): 
+    def leaderboard(self, player2): 
         """Shows the leaderboard in a form of dictionary 
     
         Args:
@@ -154,8 +152,13 @@ class WordGame:
             leaderboard (dictionary): players' names as key and players' 
             status as value
         """
-        pass
-    
+        score_leaderboard = {"player1": "" , "player2": ""}
+
+        for self.playerScore, player2.playerScore in self.score:
+            score_leaderboard["player 1"] = self.playerScore
+            score_leaderboard["player 2"] = player2.playerScore
+
+        return score_leaderboard
 
 def parse_args(arglist):
     """Parses command-line arguments.
