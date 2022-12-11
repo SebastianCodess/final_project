@@ -2,6 +2,7 @@ import sys
 from argparse import ArgumentParser
 import random
 import string
+import pandas as pd
 
 class WordGame:
     """
@@ -67,8 +68,11 @@ class WordGame:
             #if all([x in self.guessedWords for x in self.player_letters]) == True:
                 #updated_guesses.append(x)
         
-        updated_guesses = [x for x in self.guessedWords if all([c in self.player_letters for c in self.guessedWords])]
-    
+        #updated_guesses = [x for x in self.guessedWords if all([c in self.guessedWords for c in self.player_letters])]
+        
+        if self.guessedWords in self.player_letters: 
+            updated_guesses.append(self.guessedWords)
+                
         self.dalist = set(self.dalist) 
         guesses = set(self.guessedWords) 
         
@@ -146,30 +150,27 @@ class WordGame:
         return f"{self.winner} won the game with {self.highscore} points!"
         
     def leaderboard(self, player2): 
-        """Shows the leaderboard in a form of dictionary 
+        """Shows the leaderboard in a form of pandas dataframe
     
         Args:
             score (tuple of int): player 1's score and player 2's score
 
         Returns:
-            leaderboard (dictionary): players' names as key and players' 
+            leaderboard (dataframe): players' names as key and players' 
             status as value
         """
-        score_leaderboard = {"player1": "" , "player2": ""}
+        leaderboard_score = pd.read_csv("Player Score Leaderboard - Player Score.csv")
 
-        for self.playerScore, player2.playerScore in self.score:
-            score_leaderboard["player 1"] = self.playerScore
-            score_leaderboard["player 2"] = player2.playerScore
+        updated_score = leaderboard_score.replace({'Status' : { 'Player 1 Status' : self.playerScore, 'Player 2 Status' : player2.playerScore}})
 
-        return score_leaderboard
+        print(updated_score)
 
 def parse_args(arglist):
     """Parses command-line arguments.
     
-    Expect three mandatory arguments:
+    Expect two mandatory arguments:
         - Filepath: The file that is being read in with the word list
-        - Vowels: The number of vowels the user wants
-        - Consonants: The number of consonants the user wants, max of 6 
+        - Characters: The amount of letters the user wants to use
     The Function also allows for one optional argument:
         - Players: The amount of players that are playing with a max of 2,
         default is 1.
