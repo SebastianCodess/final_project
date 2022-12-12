@@ -267,22 +267,30 @@ def main(filename,characters):
     print("Welcome to our Word Game!")
     name = input("To begin, What is your name? ")
     #name2 = input("To being, What is your name? ")
-    print("You will be able to enter up to 10 words. If you would like to end the game: enter the number 1")
+    
             
     print(f"Here are the letters you can build a word from:{random_characters}")
+    print("If you would like to end the game or cannot think of other words:" 
+          " please enter the number 1")
     
     englishWords = (word_list(filename))
     
     
     while True: 
-        word = input("Please enter a word with the given letters:")
-        if word == "1" or None:
+        word = input("Please enter a word with the given letters or enter the number 1 "
+                      "to end the game:")
+        if word == "1":
+            print("You have ended the WordGame.")
             break
         player_guesses.append(word)
-        #if word not in englishWords:
-            #print("This word is not in the list of valid words. Try a different word!")
-        #continue
-    
+        print("This word is not in the list of valid words and will not be counted towards " 
+              "your score. Try a different word!")if word not in englishWords else print("This is a " 
+              "valid word using the letters above and will be added to your score!")
+        
+            
+            
+        
+
     #print(player_guesses)
    
     wordgame = WordGame(englishWords,player_guesses,name,random_characters)
@@ -291,7 +299,10 @@ def main(filename,characters):
     wordgame.word_checker()
     print(wordgame.Score())
     #print(wordgame2.Score())
-        
+    #print(leaderboard())
+    
+    
+    print("Thank you for playing!")
     
     
         
