@@ -2,7 +2,6 @@ import sys
 from argparse import ArgumentParser
 import random
 import string
-import pandas as pd
 
 class WordGame:
     """
@@ -28,37 +27,41 @@ class WordGame:
         self.dalist = englishWords
         
     def word_checker(self):
-        """This method will check if the guessed is found in the list of words.
-        The method takes the list of guessed words and list of generated words and 
-        changes them to sets so that the set operator & can be used to find
-        commonality. The method also checks if player guessed a word containing a 
-        letter that was not provided in the list of letters shown to the player. If
-        that happens then the word is then deleted from the list of guessed words.
+        """(Ivan: Set Operators)
+        This method will check the validaity of each
+        word guessed by the user. This method takes the list of guessed words
+        and checks if each word is only made up of the list of 
+        generated characters. All of these valid words are then appended into
+        a updated_guesses list. From there both updated_guess and the dalist 
+        word list are turned into sets so that the & operator can be utilized
+        to find commonality between the two. The result is these common words
+        is placed in the self.matched attribute so that it can be used in the
+        score method.
+
     
     
         Simple Values:
-            str: This method will be comparing strings or words in a list of player
-            guessed words and a list of given words from a sample textfile.
+            str: This method will be comparing strings or words in a list of
+            player guessed words and a list of given words 
+            from a sample textfile.
     
         Containers:
-            list: There will be a list for both the user guessed scores as well as 
-            the list of given words from the textfile.
+            list: There will be a list for both the user guessed scores, 
+            the list of given words from the textfile, and the list
+            of randomly generated letters.
         
-            set: The lists will be converted into sets so that set operators can be
-            used between the two sets to find commonality. That is how we will 
-            check if the guessed word is in the list of words in the game.
-        
-        Args:
-            guessed_words(list of str): Contains all of the words the player guessed
-            generated_words(list of str): Contains all of the words from the 
-            textfile used to compare words. 
+            set: The lists will be converted into sets so that set operators can
+            be used between the two sets to find commonality. 
+            That is how we will check if the guessed word is 
+            in the list of words in the game.
         
         
         Side Effects:
             Changes the guessed_words and generated_words list into sets.
+            The empty list self.matched is created.
         
         Returns:
-            A set of matching/correct words.
+            A list of all the matched words.
         """
         updated_guesses = []
         self.matched = []
@@ -68,45 +71,43 @@ class WordGame:
             if all([char in self.player_letters for char in x]):
                 updated_guesses.append(x)
         
-        #updated_guesses = [x for x in self.guessedWords if all([c in self.guessedWords for c in self.player_letters])]
                         
         self.dalist = set(self.dalist) 
         guesses = set(updated_guesses) 
         
         match = (self.dalist & guesses)
         self.matched = list(match)
-        #print(guesses)
-        #print(self.matched)
-        #print(self.guessedWords)
-        #print(self.player_letters)
+
         return self.matched
         
         
            
-    def Score(self):
-        """This method will keep track of the score by taking the length of each
-        word that matched the generated list of words and create a score.
-        The scores will then be added up to create a main score for a single player.
+    def score(self):
+        """(Ivan & f-strings)
+        This method will find the score of the player based on the correct
+        words guessed. The method will find the length of each word and add it
+        into the list_of_scores list. The sum of all these lengths will be the 
+        users total score.
     
         Simple values:
             str: Each word guessed in the list of guessed words and the words
             from the list of generated words.
         
             int: In each matching word, the length of the word will be the score
-            given for that particular word. These scores will then be added up and 
-            return the total score for one player.
+            given for that particular word. These scores will then be added up  
+            and return the total score for one player.
     
         Containers:
-            lists: The individual scores for each word will be added into a list.
-            These values will then be summed together to create the individual score
-            of the player.
+            lists: The individual scores for each word will be added into 
+            a list. These values will then be summed together 
+            to create the individual score of the player.
 
         Side Effects:
             Creates a object that contains a value for each individual's score.
 
         Returns:
-            The score of an individual player that is the sum of all the points
-            given for every matched words length.
+            An f-string stating the player's name and their total score.
+
         """
         list_of_scores = []
         for word in self.matched:
@@ -147,30 +148,31 @@ class WordGame:
         return f"{self.winner} won the game with {self.highscore} points!"
         
     def leaderboard(self, player2): 
-        """Shows the leaderboard in a form of pandas dataframe
+        """Shows the leaderboard in a form of dictionary 
     
         Args:
             score (tuple of int): player 1's score and player 2's score
 
         Returns:
-            leaderboard (dataframe): players' names as key and players' 
+            leaderboard (dictionary): players' names as key and players' 
             status as value
         """
-        leaderboard_score = pd.read_csv("Player Score Leaderboard - Player Score.csv")
+        score_leaderboard = {"player1": "" , "player2": ""}
 
-        updated_score = leaderboard_score.replace({'Status' : { 'Player 1 Status' : self.playerScore, 'Player 2 Status' : player2.playerScore}})
+        for self.playerScore, player2.playerScore in self.score:
+            score_leaderboard["player 1"] = self.playerScore
+            score_leaderboard["player 2"] = player2.playerScore
 
-        print(updated_score)
+        return score_leaderboard
 
 def parse_args(arglist):
     """Parses command-line arguments.
     
-    Expect two mandatory arguments:
+    Expect one mandatory arguments:
         - Filepath: The file that is being read in with the word list
-        - Characters: The amount of letters the user wants to use
     The Function also allows for one optional argument:
-        - Players: The amount of players that are playing with a max of 2,
-        default is 1.
+        - Characters: The amount of characters the user wants to play with,
+        default is 7.
     
     Args:
         arglist (list of str): arguments from the command line.
@@ -180,9 +182,7 @@ def parse_args(arglist):
     parser = ArgumentParser()
     parser.add_argument("Filepath", help="file containing the word list")
     parser.add_argument("Characters", help = """Integer stating the number of
-                        characters the user wants""")
-    parser.add_argument("Players", help = """The number of players playing the
-                        #game""",default=1)
+                        characters the user wants""", default=7)
     return parser.parse_args(arglist)
 
 def word_list(filename):
@@ -219,30 +219,32 @@ def word_list(filename):
         return dalist
 
 def randomizer(Characters):
-        """Takes the two numbers given by the user for the numbers of vowels and
-        consonants that they want and then generates those characters by using a
-        list comprehension.
+        """If there is a specified number by the user it generates that number
+        of characters. If there is not it will by default generate 7 random 
+        characters. The letter distribution of scrabble letters was what I used
+        to ensure that players get a usable set of letters to play with.
 
         Args:
-            Vowels (Int): The number of Vowels the user wants in their character
-            list
-            Consonants (_type_): The number of Consonants the user wants in 
-            their character list
+            Characters (Int): The amount of characters that the user wants to
+        generate to use for making words. Default is 7.
             
         Returns: A list of all of the characters that the user will pick from 
         when making their words.
         """
-        LettersList = ["e","e","e","e","e","a","a","a","a","s","s","s","s","i","i",
-                   "i","i","r","r","r","r","n","n","n","n","t","t","t","o","o",
-                   "o","l","l","l","c","c","c","d","d","d","u","u","u","u","g",
-                 "p","p","m","m","h","h","b","b","y","y","f","f","v","k","w",
-                 "z","x","j","q"]
+        LettersList = ["e","e","e","e","e","e","e","e","e","e","e","e","e",
+                       "a","a","a","a","a","a","a","a","a","b","b","c","c",
+                       "d","d","d","d","f","f","g","g","g","h","h",
+                       "i","i","i","i","i","i","i","i","i","j","k","l","l","l",
+                       "l","m","m","n","n","n","n","n","n","o","o","o","o",
+                       "o","o","o","o","p","p","q","r","r","r","r","r","r",
+                       "s","s","s","s","t","t","t","t","t","t","u","u","u","u",
+                       "v","v","w","w","x","y","y","z"]
         CharacterList = []
         [CharacterList.append((random.choice(LettersList))) 
          for x in range(1,int(Characters)+1)]
         return CharacterList
           
-def main(filename,characters):
+def main(filename,Characters=7):
     """ 
     The main function will call two classes and create an instance of both classes. 
     It will print the score of both players after both of their sessions have
@@ -258,16 +260,21 @@ def main(filename,characters):
             using an F-string. 
     """
     player_guesses = []
-    random_characters = randomizer(characters)
+    random_characters = randomizer(Characters)
     
     
     
     #player =  WordGame()
 
     print("Welcome to our Word Game!")
+<<<<<<< HEAD
     name = input("To begin, What is your name? ")
     #name2 = input("To being, What is your name? ")
     
+=======
+    name = input("To being, What is your name? ")
+    print("You will be able to enter up to 10 words. If you would like to end the game: enter the number 1")
+>>>>>>> 88a852068c0d5642dcb6561942973bb20c2e6d57
             
     print(f"Here are the letters you can build a word from:{random_characters}")
     print("If you would like to end the game or cannot think of other words:" 
@@ -283,6 +290,7 @@ def main(filename,characters):
             print("You have ended the WordGame.")
             break
         player_guesses.append(word)
+<<<<<<< HEAD
         print("This word is not in the list of valid words and will not be counted towards " 
               "your score. Try a different word!")if word not in englishWords else print("This is a " 
               "valid word using the letters above and will be added to your score!")
@@ -291,18 +299,29 @@ def main(filename,characters):
             
         
 
+=======
+        if word not in englishWords:
+            print("This word is not in the list of valid words. Try a different word!")
+        continue
+    
+>>>>>>> 88a852068c0d5642dcb6561942973bb20c2e6d57
     #print(player_guesses)
    
     wordgame = WordGame(englishWords,player_guesses,name,random_characters)
-    #wordgame2 = WordGame(englishWords,player_guesses,name2,random_characters)
+    wordgame2 = WordGame(englishWords,player_guesses,name,random_characters)
 
     wordgame.word_checker()
     print(wordgame.Score())
+<<<<<<< HEAD
     #print(wordgame2.Score())
     #print(leaderboard())
     
     
     print("Thank you for playing!")
+=======
+    print(wordgame2.Score())
+        
+>>>>>>> 88a852068c0d5642dcb6561942973bb20c2e6d57
     
     
         
