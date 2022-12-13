@@ -141,12 +141,7 @@ class WordGame:
         Returns
             string: player's final score, name, and guesses
         """
-<<<<<<< HEAD
-        return f"""{self.player} got {self.score()} points using
-                   {self.matched}!"""
-=======
         return f"Hey {self.player}, your final score is {self.score()}!"
->>>>>>> d1f953b9ac86561aa004915a363087f7630446ac
         
     def leaderboard(self, player2 = None): 
         """(Fadel: Pandas Concatenate Method) Shows the leaderboard in a form of a dataframe. 
@@ -319,7 +314,10 @@ def main(filename,Characters):
     wordgame = WordGame(englishWords,player_guesses,random_characters,name)
 
     wordgame.word_checker()
-    print(f"These are the valid words you entered sorted by length: {wordgame.score_list()}") 
+    print(f"These are the valid words you entered sorted by length: {wordgame.score_list()}")
+    print("""You guessed a lot of words. 
+          Good Job!""") if len(wordgame.score_list()) >= 5 else print(f"""You suck, 
+        you only guessed {len(wordgame.score_list())} words, better luck next time!""")
 
     print(wordgame)
     #wordgame.leaderboard()
