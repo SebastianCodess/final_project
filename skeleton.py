@@ -115,37 +115,27 @@ class WordGame:
             list_of_scores.append(x)
             
         self.playerScore = sum(list_of_scores)
-        return f"Hey {self.player}, your final score is {self.playerScore}!"
+        return self.playerScore
 
-    def score_comparison(self, player2 = None):
-        """Compares the scores from the two players. It takes the score and puts
-        the integers into a tuple that has the player one as the first number
-        and player two as the second number. The higher number is declaired the 
-        winner and is returned to be used later.
+    def score_list(self):
+        """Sorts the player's guesses so the words that are worth the most points
+        are first and goes in decending order.
         
         Returns:
-            high_score (int): the highest score from the two players
+            sorted_guesses(list): sorted list of the guesses
         """
-        score = ()
-        score = (self.playerScore, player2.playerScore)
-        if self.playerScore > player2.playerScore:
-            self.highscore, self.winner = max(score), "player 1"
-            return self.highscore, self.winner
-        else:
-            self.highscore, self.winner = max(score), "player 2"
-            return self.highscore, self.winner
+        sorted_guesses = sorted(self.matched, key=len, reverse= True)
+        return sorted_guesses
                 
     def __str__(self):
         """Gets the highest score from the session and who got that score. After
         it prints that out to the user so they can see who won the game.
         
         Returns
-            highest_score (list of int): the highest score from the session
-        
-        Side effects:
-            prints to stdout
+            string: player's final score, name, and guesses
         """
-        return f"{self.winner} won the game with {self.highscore} points!"
+        return f"""{self.player} got {self.score()} points using
+                   {self.matched}!"""
         
     def leaderboard(self, player2): 
         """Shows the leaderboard in a form of dictionary 
@@ -166,7 +156,8 @@ class WordGame:
         return score_leaderboard
 
 def parse_args(arglist):
-    """Parses command-line arguments.
+    """(Dan:Parse_Args)
+    Parses command-line arguments.
     
     Expect one mandatory arguments:
         - Filepath: The file that is being read in with the word list
@@ -222,7 +213,8 @@ def word_list(filename):
         return dalist
 
 def randomizer(Characters):
-        """If there is a specified number by the user it generates that number
+        """(Dan:List Comprehension)
+        If there is a specified number by the user it generates that number
         of characters. If there is not it will by default generate 7 random 
         characters. The letter distribution of scrabble letters was what I used
         to ensure that players get a usable set of letters to play with.
@@ -271,7 +263,6 @@ def main(filename,Characters=7):
 
     print("Welcome to our Word Game!")
     name = input("To being, What is your name? ")
-    print("If you would like to end the game: enter the number 1")
             
     print("If you would like to end the game or cannot think of other words:" 
           " please enter the number 1")
@@ -281,19 +272,29 @@ def main(filename,Characters=7):
     
     while True: 
         word = input(f"Please enter a word with the given letters {random_characters} :")
-                      
         if word == "1":
             print("You have ended the WordGame.")
             break
         player_guesses.append(word)
-        print("This word is not in the list of valid words and will not be added to your final score. Try a different word!") if word not in englishWords else print("Good Word Selection! This word will be added to your final score!")
         for letter in word: 
             if letter not in random_characters:
                 missing_letters.append(letter) 
         if missing_letters: 
-            print(f"You have used the letters {missing_letters}, which are not apart of the letter list. Try a different word please!")
+            print(f"""You have used the letters {missing_letters}, which are not 
+                  apart of the letter list. Try a different word please!""")
         else: 
-            print("You have used the correct letters!")       
+            print("You have used the correct letters!")      
+                      
+        if word not in englishWords or missing_letters:
+            print("""This word is not in the list of valid words and will not be 
+              added to your final score. Try a different 
+              word!""")  
+        else: 
+            print("""Good Word Selection! 
+        This word will be added to your final score!""")
+        
+        
+         
 
                 
             
@@ -301,6 +302,8 @@ def main(filename,Characters=7):
     wordgame = WordGame(englishWords,player_guesses,name,random_characters)
 
     wordgame.word_checker()
+    print(f"These are the valid words you entered sorted by length: {wordgame.score_list()}")
+
     print(wordgame)
     print("Thanks for playing!")
         
