@@ -166,7 +166,8 @@ class WordGame:
         return score_leaderboard
 
 def parse_args(arglist):
-    """Parses command-line arguments.
+    """(Dan:Parse_Args)
+    Parses command-line arguments.
     
     Expect one mandatory arguments:
         - Filepath: The file that is being read in with the word list
@@ -219,7 +220,8 @@ def word_list(filename):
         return dalist
 
 def randomizer(Characters):
-        """If there is a specified number by the user it generates that number
+        """(Dan:List Comprehension)
+        If there is a specified number by the user it generates that number
         of characters. If there is not it will by default generate 7 random 
         characters. The letter distribution of scrabble letters was what I used
         to ensure that players get a usable set of letters to play with.
@@ -267,14 +269,9 @@ def main(filename,Characters=7):
     #player =  WordGame()
 
     print("Welcome to our Word Game!")
-<<<<<<< HEAD
     name = input("To begin, What is your name? ")
     #name2 = input("To being, What is your name? ")
     
-=======
-    name = input("To being, What is your name? ")
-    print("You will be able to enter up to 10 words. If you would like to end the game: enter the number 1")
->>>>>>> 88a852068c0d5642dcb6561942973bb20c2e6d57
             
     print(f"Here are the letters you can build a word from:{random_characters}")
     print("If you would like to end the game or cannot think of other words:" 
@@ -290,21 +287,10 @@ def main(filename,Characters=7):
             print("You have ended the WordGame.")
             break
         player_guesses.append(word)
-<<<<<<< HEAD
-        print("This word is not in the list of valid words and will not be counted towards " 
-              "your score. Try a different word!")if word not in englishWords else print("This is a " 
-              "valid word using the letters above and will be added to your score!")
-        
-            
-            
-        
-
-=======
         if word not in englishWords:
             print("This word is not in the list of valid words. Try a different word!")
         continue
     
->>>>>>> 88a852068c0d5642dcb6561942973bb20c2e6d57
     #print(player_guesses)
    
     wordgame = WordGame(englishWords,player_guesses,name,random_characters)
@@ -312,16 +298,8 @@ def main(filename,Characters=7):
 
     wordgame.word_checker()
     print(wordgame.Score())
-<<<<<<< HEAD
-    #print(wordgame2.Score())
-    #print(leaderboard())
-    
-    
-    print("Thank you for playing!")
-=======
     print(wordgame2.Score())
         
->>>>>>> 88a852068c0d5642dcb6561942973bb20c2e6d57
     
     
         
