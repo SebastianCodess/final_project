@@ -10,15 +10,25 @@ class WordGame:
     This is a word game. The game generates a specified number of letters for
     the user and allows the user to make words using those characters. 
     
+    Attributes:
+        playerScore(int): the player's score
+        guessedWords(list of str): the player's guessed words
+        Characters(int): the amount of random characters to guess the words from
+        player(str): the player's name
+        player_letters(list of str): the random letters to guess the words from 
+        dalist(str): the list of all american english words
+
+    
     """
     
     def __init__(self, englishWords , guessedWords,player_letters,player = "player 1"):
         """(Fadel: Optional Parameter) Creates the playerScore, playerWords, guessedWords attributes
 
         Args:
-            playerScore (int): the counter for the scores of players.
             englishWords (list): the list that will contain all the choices of words.
             guessedWords (list): the list that will contain all the user's guessed words.
+            player_letters(list of str): the random letters to guess the words from 
+            player (str): the name of the player. 
         """
         self.playerScore = 0
         self.guessedWords = guessedWords
@@ -156,12 +166,10 @@ class WordGame:
             leaderboard (dictionary): players' names as key and players' 
             status as value
         """
-        leaderboard_score1 = pd.read_csv("Player Score Leaderboard - Player Score.csv")
-        leaderboard_score2 = pd.read_csv("Player Score Leaderboard2 - Player Score.csv")
-        
-        updated_score = leaderboard_score1.replace({'Status' : { 'Player 1 Status' : self.playerScore}})
-        updated_score2 = leaderboard_score2.replace({'Status' : { 'Player 2 Status' : player2.playerScore}})
-
+        leaderboard_player = pd.read_csv("Player Score Leaderboard - Player Score.csv")
+        leaderboard_score = pd.read_csv("Player Score Leaderboard 2 - Score.csv")
+        updated_score = leaderboard_player.replace({'Player' : { 'Player 1' : self.player}})
+        updated_score2 = leaderboard_score.replace({'Score' : { 'Empty Score' : self.playerScore}})
         combined_score = pd.concat([updated_score, updated_score2], axis=1)
 
         print(combined_score)
@@ -253,23 +261,23 @@ def randomizer(Characters):
 def main(filename,Characters):
     """ 
     (Sebastian, conditional expressions)
-    The main function will call two classes and create an instance of both classes. 
-    It will print the score of both players after both of their sessions have
-    finished.
+    The main function will allow a user to play the WordGame by inputting words. 
+    The main function will check to see if the word a user inputed is valid based 
+    on the words in the file. The main function also checks to see if you are
+    using the random letters generated to build a word.
     
     Args:
-        player1(Word object): this is the first player in the game.
-        player2(Word object): this is the second player in the game. 
+        filename(file): this is a text file containing words.
+        characters(int): this is the number of characters a user wants to
+                        generate. 
         
     
     Side effects: 
-            This function will print out the scores and names of both players 
-            using an F-string. 
+            prints to standard output. 
     """
     player_guesses = []
     random_characters = randomizer(Characters)
     missing_letters = []
-    boy = True
     
 
     print("Welcome to our Word Game!")
@@ -282,9 +290,9 @@ def main(filename,Characters):
     
     
     while True: 
-        word = input(f"Please enter a word with the given letters {random_characters} :")
+        word = input(f"Please enter a word with the given letters {random_characters} :\n")
         if word == "1":
-            print("You have ended the WordGame.")
+            print("You have ended the WordGame.\n")
             break
         player_guesses.append(word)
         
@@ -319,8 +327,9 @@ def main(filename,Characters):
           Good Job!""") if len(wordgame.score_list()) >= 5 else print(f"""You suck, 
         you only guessed {len(wordgame.score_list())} words, better luck next time!""")
 
-    print(wordgame)
-    #wordgame.leaderboard()
+    print(f"{wordgame}\n\n")
+    print("Here's your leaderboard:\n")
+    wordgame.leaderboard()
     
     print("Thanks for playing!") 
         
