@@ -2,6 +2,7 @@ import sys
 from argparse import ArgumentParser
 import random
 import string
+import pandas as pd
 
 class WordGame:
     """
@@ -11,8 +12,8 @@ class WordGame:
     
     """
     
-    def __init__(self, englishWords , guessedWords, player, player_letters):
-        """  Creates the playerScore, playerWords, guessedWords attributes
+    def __init__(self, englishWords , guessedWords, player_letters, player = "player 1"):
+        """(Fadel: Optional Parameter) Creates the playerScore, playerWords, guessedWords attributes
 
         Args:
             playerScore (int): the counter for the scores of players.
@@ -138,7 +139,10 @@ class WordGame:
                    {self.guessedWords}!"""
         
     def leaderboard(self, player2): 
-        """Shows the leaderboard in a form of dictionary 
+        """(Fadel: Pandas Concatenate Method) Shows the leaderboard in a form of a dataframe. 
+        The objective of using dataframe is to make the score leaderboard visually more appealing. 
+        In comparison to using dictionary or tuple, in this case there can be two dataframes (player 1's and player 2') 
+        that can be concatenated. 
     
         Args:
             score (tuple of int): player 1's score and player 2's score
@@ -147,13 +151,15 @@ class WordGame:
             leaderboard (dictionary): players' names as key and players' 
             status as value
         """
-        score_leaderboard = {"player1": "" , "player2": ""}
+        leaderboard_score1 = pd.read_csv("Player Score Leaderboard - Player Score.csv")
+        leaderboard_score2 = pd.read_csv("Player Score Leaderboard2 - Player Score.csv")
+        
+        updated_score = leaderboard_score1.replace({'Status' : { 'Player 1 Status' : self.playerScore}})
+        updated_score2 = leaderboard_score2.replace({'Status' : { 'Player 2 Status' : player2.playerScore}})
 
-        for self.playerScore, player2.playerScore in self.score:
-            score_leaderboard["player 1"] = self.playerScore
-            score_leaderboard["player 2"] = player2.playerScore
+        combined_score = pd.concat([updated_score, updated_score2], axis=1)
 
-        return score_leaderboard
+        print(combined_score)
 
 def parse_args(arglist):
     """(Dan:Parse_Args)
@@ -259,9 +265,8 @@ def main(filename,Characters=7):
     #player =  WordGame()
 
     print("Welcome to our Word Game!")
-    name = input("To begin, What is your name? ")
-    #name2 = input("To being, What is your name? ")
-    
+    name = input("To being, What is your name? ")
+    print("You will be able to enter up to 10 words. If you would like to end the game: enter the number 1")
             
     print(f"Here are the letters you can build a word from:{random_characters}")
     print("If you would like to end the game or cannot think of other words:" 
