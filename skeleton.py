@@ -119,8 +119,13 @@ class WordGame:
         return f"Hey {self.player}, your final score is {self.playerScore}!"
 
     def score_list(self):
-        """Sorts the player's guesses so the words that are worth the most points
+        """(Chris: list sorting)
+        Sorts the player's guesses so the words that are worth the most points
         are first and goes in decending order.
+        
+        Containers:    
+            list: the user's correctly guessed words sorted by longest to 
+                shortest
         
         Returns:
             sorted_guesses(list): sorted list of the guesses
@@ -129,14 +134,14 @@ class WordGame:
         return sorted_guesses
                 
     def __str__(self):
-        """Gets the highest score from the session and who got that score. After
+        """(Chris: magic methods)
+        Gets the highest score from the session and who got that score. After
         it prints that out to the user so they can see who won the game.
         
         Returns
             string: player's final score, name, and guesses
         """
-        return f"""{self.player} got {self.playerScore} points using
-                   {self.guessedWords}!"""
+        return f"Hey {self.player}, your final score is {self.score()}!"
         
     def leaderboard(self, player2): 
         """(Fadel: Pandas Concatenate Method) Shows the leaderboard in a form of a dataframe. 
