@@ -239,7 +239,7 @@ def randomizer(Characters):
          for x in range(1,int(Characters)+1)]
         return CharacterList
           
-def main(filename,Characters=7):
+def main(filename,Characters):
     """ 
     (Sebastian, conditional expressions)
     The main function will call two classes and create an instance of both classes. 
@@ -276,22 +276,23 @@ def main(filename,Characters=7):
             print("You have ended the WordGame.")
             break
         player_guesses.append(word)
+        
+        
         for letter in word: 
             if letter not in random_characters:
                 missing_letters.append(letter) 
         if missing_letters: 
             print(f"""You have used the letters {missing_letters}, which are not 
                   apart of the letter list. Try a different word please!""")
-        else: 
-            print("You have used the correct letters!")      
+        elif word in englishWords and not missing_letters: 
+            print("You have used the correct letters and this word is valid! This word will be added to your final score!")      
                       
-        if word not in englishWords or missing_letters:
+        if word not in englishWords:
             print("""This word is not in the list of valid words and will not be 
-              added to your final score. Try a different 
-              word!""")  
-        else: 
-            print("""Good Word Selection! 
-        This word will be added to your final score!""")
+              added to your final score. Try a different word!""")
+        
+        
+       
         
         
          
