@@ -186,7 +186,10 @@ def parse_args(arglist):
     return parser.parse_args(arglist)
 
 def word_list(filename):
-        """This method will open a file using a with statement, read the words 
+    
+        """
+        (Sebastian, with statement)
+        This method will open a file using a with statement, read the words 
         in each line within the file, and append those words to a list.
     
         Simple Values:
@@ -246,6 +249,7 @@ def randomizer(Characters):
           
 def main(filename,Characters=7):
     """ 
+    (Sebastian, conditional expressions)
     The main function will call two classes and create an instance of both classes. 
     It will print the score of both players after both of their sessions have
     finished.
@@ -261,22 +265,14 @@ def main(filename,Characters=7):
     """
     player_guesses = []
     random_characters = randomizer(Characters)
+    missing_letters = []
     
     
-    
-    #player =  WordGame()
 
     print("Welcome to our Word Game!")
-<<<<<<< HEAD
-    name = input("To begin, What is your name? ")
-    #name2 = input("To being, What is your name? ")
-    
-=======
     name = input("To being, What is your name? ")
-    print("You will be able to enter up to 10 words. If you would like to end the game: enter the number 1")
->>>>>>> 88a852068c0d5642dcb6561942973bb20c2e6d57
+    print("If you would like to end the game: enter the number 1")
             
-    print(f"Here are the letters you can build a word from:{random_characters}")
     print("If you would like to end the game or cannot think of other words:" 
           " please enter the number 1")
     
@@ -284,44 +280,30 @@ def main(filename,Characters=7):
     
     
     while True: 
-        word = input("Please enter a word with the given letters or enter the number 1 "
-                      "to end the game:")
+        word = input(f"Please enter a word with the given letters {random_characters} :")
+                      
         if word == "1":
             print("You have ended the WordGame.")
             break
         player_guesses.append(word)
-<<<<<<< HEAD
-        print("This word is not in the list of valid words and will not be counted towards " 
-              "your score. Try a different word!")if word not in englishWords else print("This is a " 
-              "valid word using the letters above and will be added to your score!")
-        
-            
-            
-        
+        print("This word is not in the list of valid words and will not be added to your final score. Try a different word!") if word not in englishWords else print("Good Word Selection! This word will be added to your final score!")
+        for letter in word: 
+            if letter not in random_characters:
+                missing_letters.append(letter) 
+        if missing_letters: 
+            print(f"You have used the letters {missing_letters}, which are not apart of the letter list. Try a different word please!")
+        else: 
+            print("You have used the correct letters!")       
 
-=======
-        if word not in englishWords:
-            print("This word is not in the list of valid words. Try a different word!")
-        continue
-    
->>>>>>> 88a852068c0d5642dcb6561942973bb20c2e6d57
-    #print(player_guesses)
+                
+            
    
     wordgame = WordGame(englishWords,player_guesses,name,random_characters)
-    wordgame2 = WordGame(englishWords,player_guesses,name,random_characters)
 
     wordgame.word_checker()
-    print(wordgame.Score())
-<<<<<<< HEAD
-    #print(wordgame2.Score())
-    #print(leaderboard())
-    
-    
-    print("Thank you for playing!")
-=======
-    print(wordgame2.Score())
+    print(wordgame)
+    print("Thanks for playing!")
         
->>>>>>> 88a852068c0d5642dcb6561942973bb20c2e6d57
     
     
         
